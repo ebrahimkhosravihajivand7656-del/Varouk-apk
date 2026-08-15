@@ -1,0 +1,18 @@
+# راهنمای آپلود در GitHub
+
+این پوشه آماده آپلود مستقیم داخل Repository موجود Varouk-apk است.
+
+ساختار:
+- server.js
+- package.json
+- render.yaml
+- README.md
+- db/schema.sql
+- public/admin/index.html
+- public/admin/app.js
+- public/admin/style.css
+
+مهم:
+محتویات این پوشه را داخل Repository آپلود کنید، نه خود پوشه Varouk-apk-GitHub-Ready را.
+
+بعد از آپلود باید در صفحه اصلی GitHub پوشه‌های `db` و `public` را ببینید.

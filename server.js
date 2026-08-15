@@ -76,8 +76,13 @@ async function boot(){
  await pool.query(schema);
  const adminUser=process.env.ADMIN_USER,adminPass=process.env.ADMIN_PASSWORD;
  if(adminUser&&adminPass){
-  const e=await q("SELECT id FROM users WHERE phone=$1",[adminUser]);
-  if(!e.rowCount)await q("INSERT INTO users(name,phone,password_hash,role) VALUES($1,$2,$3,'admin')",["مدیر واروک",adminUser,await bcrypt.hash(adminPass,12)]);
+  const hash=await bcrypt.hash(adminPass,12);
+  const e=await q("SELECT id,role FROM users WHERE phone=$1",[adminUser]);
+  if(!e.rowCount){
+   await q("INSERT INTO users(name,phone,password_hash,role,active) VALUES($1,$2,$3,'admin',true)",["مدیر واروک",adminUser,hash]);
+  }else{
+   await q("UPDATE users SET password_hash=$1,role='admin',active=true WHERE phone=$2",[hash,adminUser]);
+  }
  }
  app.listen(PORT,()=>console.log("Varouk platform running on "+PORT));
 }
