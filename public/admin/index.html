@@ -1,3 +1,50 @@
-<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>پنل مدیریت واروک</title><link rel="stylesheet" href="/admin/style.css"></head><body>
-<div id="login"><div class="loginbox"><b>واروک</b><span>پنل مدیریت</span><input id="u" placeholder="نام کاربری"><input id="p" type="password" placeholder="رمز عبور"><button onclick="login()">ورود</button><em id="err"></em></div></div>
-<div id="app" class="hide"><aside><h2>واروک</h2><button onclick="page('dashboard')">داشبورد</button><button onclick="page('products')">محصولات</button><button onclick="page('categories')">دسته‌بندی‌ها</button><button onclick="page('prices')">قیمت‌های روز</button><button onclick="page('festivals')">جشنواره‌ها</button><button onclick="page('orders')">سفارش‌ها</button><button onclick="page('customers')">مشتریان</button><button onclick="logout()" class="out">خروج</button></aside><main><h1 id="title">داشبورد</h1><div id="content"></div></main></div><div id="modal" class="modal hide"><div class="modalbox"><button class="x" onclick="closeM()">×</button><div id="form"></div></div></div><script src="/admin/app.js"></script></body></html>
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>واروک | مدیریت</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin/style.css">
+</head>
+<body>
+<div id="login" class="login"><div class="login-box">
+  <div class="brand">واروک<small>هایپر پروتئین</small></div>
+  <h1>ورود به مدیریت</h1>
+  <p>پنل مدیریت فروشگاه واروک</p>
+  <form id="loginForm">
+    <input id="username" placeholder="نام کاربری" required>
+    <input id="password" type="password" placeholder="رمز عبور" required>
+    <button>ورود به پنل</button>
+  </form>
+</div></div>
+
+<div id="app" class="hidden">
+<aside>
+  <div class="logo">واروک<small>هایپر پروتئین</small></div>
+  <nav>
+    <button class="active" data-page="dashboard">⌂ داشبورد</button>
+    <button data-page="products">▣ محصولات</button>
+    <button data-page="prices">◈ قیمت روز</button>
+    <button data-page="inventory">◫ موجودی</button>
+    <button data-page="promotions">◇ جشنواره‌ها</button>
+    <button data-page="orders">▤ سفارش‌ها</button>
+    <button data-page="customers">♙ مشتریان</button>
+    <button data-page="reports">▥ گزارش فروش</button>
+    <button data-page="settings">⚙ تنظیمات</button>
+  </nav>
+  <div class="support">پشتیبانی<br><b>09369817656</b><small>همه روزه تا ۲۴</small></div>
+  <button id="logout" class="logout">خروج</button>
+</aside>
+
+<main>
+<header><button id="menu">☰</button><div class="search">⌕ <input placeholder="جستجو در پنل مدیریت..."></div><div class="user">مدیر ادمین　●</div></header>
+<section id="page"></section>
+</main>
+</div>
+
+<div id="modal" class="modal hidden"><div class="modalbox"><button id="close">×</button><div id="modalContent"></div></div></div>
+<script src="/admin/app.js"></script>
+</body>
+</html>
