@@ -1,21 +1,21 @@
 services:
   - type: web
-    name: varouk-platform
-    runtime: node
+    name: varouk-apk
+    env: node
+    plan: free
     buildCommand: npm install
-    startCommand: npm start
+    startCommand: node server.js
+    healthCheckPath: /api/health
     envVars:
-      - key: DATABASE_URL
-        sync: false
+      - key: NODE_ENV
+        value: production
       - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
         sync: false
       - key: ADMIN_USER
         sync: false
       - key: ADMIN_PASSWORD
         sync: false
-      - key: CORS_ORIGIN
-        value: "*"
-databases:
-  - name: varouk-db
-    databaseName: varouk
-    user: varouk
+      - key: ADMIN_NAME
+        value: مدیر واروک

@@ -1,18 +1,18 @@
-# راهنمای آپلود در GitHub
+نسخه نهایی یکپارچه واروک
 
-این پوشه آماده آپلود مستقیم داخل Repository موجود Varouk-apk است.
+1) قبل از جایگزینی، از Repository فعلی GitHub یک Backup بگیر.
+2) فایل‌ها و پوشه‌های این بسته را با ساختار Repository جایگزین کن.
+3) پوشه db، public و mobile را در سطح ریشه نگه دار.
+4) Commit changes بزن.
+5) Render به‌صورت خودکار Deploy می‌کند.
+6) در Render > Environment مقادیر DATABASE_URL، JWT_SECRET، ADMIN_USER و ADMIN_PASSWORD را بررسی کن.
+7) بعد از Live شدن، این آدرس‌ها را تست کن:
+   /api/health
+   /admin
+   /
 
-ساختار:
-- server.js
-- package.json
-- render.yaml
-- README.md
-- db/schema.sql
-- public/admin/index.html
-- public/admin/app.js
-- public/admin/style.css
-
-مهم:
-محتویات این پوشه را داخل Repository آپلود کنید، نه خود پوشه Varouk-apk-GitHub-Ready را.
-
-بعد از آپلود باید در صفحه اصلی GitHub پوشه‌های `db` و `public` را ببینید.
+هشدار:
+- PostgreSQL را حذف نکن.
+- DATABASE_URL را تغییر نده مگر اینکه عمداً دیتابیس جدید ساخته باشی.
+- رمز مدیر را در کد یا GitHub ننویس؛ فقط Environment.
+- برای APK فقط بعد از مشخص شدن دامنه نهایی Render مقدار API_BASE_URL را در mobile/src/config.js تنظیم کن.

@@ -1,33 +1,69 @@
-# Varouk Platform V1
-نسخه یکپارچه Backend + PostgreSQL + پنل مدیریت واروک.
+# Varouk Platform v2 — نسخه یکپارچه
 
-این نسخه برای Deploy روی Render آماده شده است.
+این نسخه، هسته کامل فروشگاه واروک را در یک پروژه نگه می‌دارد:
 
-## ساختار
-- `server.js` : API + دیتابیس + احراز هویت + پنل
-- `db/schema.sql` : ساخت جداول PostgreSQL
-- `public/admin/` : پنل مدیریت
-- `render.yaml` : تنظیمات سرویس Render
+- Backend: Node.js + Express + PostgreSQL
+- پنل مدیریت: RTL، ریسپانسیو، مشکی/ذغالی/طلایی
+- فروشگاه مشتری: وب‌اپ/PWA
+- اپ Android: پروژه Expo آماده اتصال به همان API
 
-## Render
-1. یک PostgreSQL Database بسازید.
-2. یک Web Service از همین پروژه بسازید.
-3. Build Command: `npm install`
-4. Start Command: `npm start`
-5. Environment Variables:
-   - DATABASE_URL = Internal Database URL
-   - JWT_SECRET = یک مقدار تصادفی طولانی
-   - ADMIN_USER = شماره/شناسه مدیر
-   - ADMIN_PASSWORD = رمز قوی
-   - CORS_ORIGIN = *
+## امکانات مدیریت
+- داشبورد فروش و سفارش
+- محصولات: افزودن، ویرایش، حذف نرم، فعال/غیرفعال، تصویر، قیمت خرید/فروش/عمده، موجودی و حداقل موجودی
+- دسته‌بندی‌ها
+- قیمت روز و تاریخچه قیمت
+- موجودی و ورود/خروج دستی
+- جشنواره و تخفیف
+- سفارش‌ها و تغییر وضعیت
+- مشتریان و فعال/مسدود کردن
+- گزارش فروش و کالاهای پرفروش
+- خروجی CSV سفارش‌ها
+- تنظیمات فروشگاه
+- تغییر رمز مدیر
 
-بعد از Deploy:
-`https://YOUR-SERVICE.onrender.com/admin`
+## امکانات مشتری
+- صفحه شروع
+- دسته‌بندی و جستجوی محصول
+- نمایش قیمت روز
+- جشنواره‌ها
+- سبد خرید
+- ثبت‌نام/ورود
+- ثبت سفارش
+- API سفارش و آدرس آماده توسعه
+- PWA برای نصب روی موبایل از مرورگر
 
-## ورود
-مقادیر ADMIN_USER و ADMIN_PASSWORD همان اطلاعات ورود پنل هستند.
+## Deploy روی Render
+Environment Variables:
+- DATABASE_URL = اتصال PostgreSQL
+- JWT_SECRET = یک مقدار طولانی و تصادفی
+- ADMIN_USER = نام کاربری مدیر
+- ADMIN_PASSWORD = رمز مدیر
+- ADMIN_NAME = مدیر واروک (اختیاری)
+- NODE_ENV = production
+- CORS_ORIGIN = * (در صورت نیاز محدود شود)
 
-این نسخه هنوز هیچ محصول واقعی Seed نمی‌کند.
+Start Command:
+`node server.js`
 
-### نکته ورود مدیر
-در هر Deploy، مقادیر `ADMIN_USER` و `ADMIN_PASSWORD` از Environment خوانده می‌شوند و حساب مدیر با همان اطلاعات به‌روزرسانی می‌شود.
+Health Check:
+`/api/health`
+
+## نکته درباره دیتابیس موجود
+`schema.sql` به‌صورت idempotent نوشته شده و ستون‌های جدید را با `ADD COLUMN IF NOT EXISTS` اضافه می‌کند؛ بنابراین برای دیتابیس فعلی نیازی به حذف PostgreSQL یا ساخت مجدد آن نیست.
+
+## آدرس‌ها
+- مشتری: `/`
+- مدیریت: `/admin`
+- سلامت API: `/api/health`
+
+## APK
+پوشه `mobile` پروژه Expo است و به همان Backend متصل می‌شود. قبل از Build مقدار `API_BASE_URL` در `mobile/src/config.js` را با آدرس واقعی Render جایگزین کنید، سپس:
+
+`npm install`
+`npx expo start`
+
+برای APK قابل نصب:
+`eas build -p android --profile preview`
+
+### نکته مهم
+تغییر محصول، قیمت، موجودی و جشنواره از پنل مدیریت نیاز به Build دوباره APK ندارد؛ اپ و وب‌اپ اطلاعات را از API و دیتابیس مرکزی می‌گیرند.
